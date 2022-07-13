@@ -44,6 +44,29 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//Edit
+
+router.patch("/edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const editedTodo = await TodoModel.findOneAndUpdate(
+      { _id: id },
+      { ...req.body },
+      { new: true }
+    );
+
+    return res.status(200).json(editedTodo);
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json(err);
+  }
+});
+
+
+
+
 
 
 module.exports = router;
