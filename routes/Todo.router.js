@@ -16,6 +16,34 @@ router.post("/create-todo", async (req, res) => {
     }
 });
 
+//Read (All)
+
+router.get("/all-todos", async (req, res) => {
+  try {
+    const allTodo = await TodoModel.find();
+
+    return res.status(200).json(allTodo);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json(err);
+  }
+});
+
+//Read (Detail)
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const todo = await TodoModel.findOne({ _id: id });
+
+    return res.status(200).json(todo);
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json(err);
+  }
+});
+
 
 
 module.exports = router;
