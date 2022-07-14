@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+const { response } = require("express");
+const { STATES } = require("mongoose");
 const TodoModel = require("../models/Todo.model");
 
 //CRUD
@@ -30,11 +32,12 @@ router.get("/all-todos", async (req, res) => {
 });
 
 //Read (Detail)
+
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const todo = await TodoModel.findOne({ _id: id });
+    const todo = await TodoModel.findOne({ _id: id }).populate;
 
     return res.status(200).json(todo);
   } catch (err) {
